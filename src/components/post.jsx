@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Modal from './modal.jsx';
 
+let posts = [];
 
 class Post extends Component {
   constructor() {
@@ -10,6 +11,17 @@ class Post extends Component {
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+  }
+
+ 
+
+  handleSubmit = (events) =>{
+    events.preventDefault()
+
+    const data = Object.fromEntries(new FormData(events.target).entries());
+    posts.push(data)
+    console.log(posts.values(data))
+    console.log(data);
   }
 
   showModal = (event) => {
@@ -24,13 +36,14 @@ class Post extends Component {
     return (
       <main>
         <div className="App">
-      <form className="mb-3 form">
+      <form className="mb-3 form" onSubmit={this.handleSubmit}>
         <textarea
           name="message"
           placeholder="enter message"
           className="search form-control"
           autoComplete="off"
           autoFocus
+          required
         />
         <div className="control">
           <div className="button">
@@ -47,10 +60,10 @@ class Post extends Component {
               type="reset"
               value="clear"
               className="reset form-control bttn"
-            >Clear</button>
+            >clear</button>
           </div>
           <div className="button">
-            <button className="post form-control bttn" >
+            <button type="submit" className="post form-control bttn" >
               post
               <i className="fas fa-paper-plane"></i>
             </button>
@@ -76,7 +89,7 @@ class Post extends Component {
                     <i className="fas fa-search"></i>
                     </button>
                     <button type="button" onClick={this.hideModal} className="close-btn get-gif">
-                    Close 
+                    close 
                     <i className="fas fa-times-circle"></i>
                     </button>
                     </div>

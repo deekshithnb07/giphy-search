@@ -65,3 +65,7 @@ body {
     padding: 5px;
     border-style: none;
   }
+  .bttn::after{
+    background-color: #2c2c2c;
+    border-color: black;
+  }
