@@ -3,15 +3,29 @@ import Gif from "./gif";
 
 let posts =[];
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: ""
+    };
+  }
 
   clearPostData = (events) =>{
     console.log("post data is cleared");
+    this.setState ({data: ""})
   }
 
   handleSubmit = (events) =>{
     events.preventDefault()
-    const data = Object.fromEntries(new FormData(events.target).entries());
-    posts.push(data)
+    const data =  new FormData(events.target.values);
+
+    const post =[
+      {
+        messagepost: data
+      }
+    ]
+
+console.log(post);
     console.log(posts.values(data));
     console.log(data);
   }
@@ -23,13 +37,13 @@ class Post extends Component {
       <form className="mb-3" >
         <div id="postData">
         <textarea
-        id="postData"
+          id="postData"
           name="message"
+          ref="message"
           placeholder="enter message"
           className="search form-control"
           autoComplete="off"
           autoFocus
-          required
         />
         <div id="gif-insert"></div>
         </div>
@@ -38,12 +52,14 @@ class Post extends Component {
           <div className="button">
             <button
               type="reset"
-              className="reset form-control bttn"
+              className="reset bttn"
               onClick={this.clearPostData}
             >clear</button>
           </div>
           <div className="button">
-            <button onClick={this.handleSubmit} className="post form-control bttn" >
+            <button 
+            onClick={this.handleSubmit} 
+            className="post bttn" >
               post
               <i className="fas fa-paper-plane"></i>
             </button>

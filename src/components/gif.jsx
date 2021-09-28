@@ -15,10 +15,11 @@ function Gif() {
   };
 
 
-  const handleClose = (ev) =>{
+   const handleClose = (ev) =>{
     setResults([]);
     console.log("gif search closed");
   }
+
 
   const handleSubmit = (e) => {
     if (text.length === 0) {
@@ -61,4 +62,5 @@ function Gif() {
     </div>
   );
 }
+
 export default Gif;

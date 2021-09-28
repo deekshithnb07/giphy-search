@@ -1,6 +1,5 @@
 import React from "react";
-import reactDom from "react-dom";
-import {handleClose} from "./gif";
+import ReactDOM from "react-dom";
 
 
 const TextList = (props) => {
@@ -20,10 +19,10 @@ const Item = (props) => {
 function handleGif(){
   console.log(props.url + " " +"is selected");
   // handleClose();
-  // ReactDOM.render(
-  // <img src={props.url} alt="gif" />,
-  // document.getElementById('postData')
-  // );
+  ReactDOM.render(
+  <img src={props.url} alt="gif" name="postGif" width="500px" height="auto" />,
+  document.getElementById('gif-insert')
+  );
   }
 
   return (

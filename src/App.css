@@ -38,8 +38,14 @@ body {
     padding: 10px;
     font-size: 20px;
     border: 3px solid black;
-    color: #e9e9e9;
+    color: #fffefe;
+    width: 100%;
   }
+
+  .bttn:hover{
+  background-color: rgb(102, 101, 101);
+  }
+
   i {
     padding: 5px;
   }
@@ -82,6 +88,11 @@ body {
 
 
   /* all the bellow is for Gif components */
+
+  #gif-insert{
+    background-color: whitesmoke;
+    text-align: left;
+  }
 
   .error {
     color: #b50000;
