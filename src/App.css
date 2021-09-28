@@ -49,9 +49,10 @@ body {
     width: 100%;
   }
   #submit{
-    background-color: rgb(22, 26, 214);
+    background-color: #ecf001;
     display: inline-block;
     width: 150px;
+    border-radius: 30%;
   }
   .get-gif{
     height: 50px;
@@ -68,4 +69,55 @@ body {
   .bttn::after{
     background-color: #2c2c2c;
     border-color: black;
+  }
+  #myForm{
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+  }
+  #close{
+    background-color: red;
+    border-radius: 30%;
+  }
+
+
+  /* all the bellow is for Gif components */
+
+  .error {
+    color: #b50000;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .text-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .gif-item {
+    flex-basis: 19%;
+    padding: 2px;
+  }
+  
+.input-field{
+  width: 40%;
+  height: 50px;
+  margin: 2px;
+}
+
+  img {
+    max-width: 100%;
+  }
+  
+  @media screen and (max-width: 992px) {
+    .gif-item {
+      flex-basis: 31%;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .gif-item {
+      flex-basis: 48%;
+    }
   }
