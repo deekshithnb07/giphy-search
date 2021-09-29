@@ -11,17 +11,20 @@ function Gif() {
   const [err, setErr] = useState(false);
 
   const handleInput = (e) => {
+    e.preventDefault()
     setText(e.target.value);
   };
 
 
    const handleClose = (ev) =>{
+    ev.preventDefault()
     setResults([]);
     console.log("gif search closed");
   }
 
 
   const handleSubmit = (e) => {
+    e.preventDefault()
     if (text.length === 0) {
       //set error state to true
       setErr(true);
