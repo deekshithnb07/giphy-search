@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Gif from "./gif";
+import Gif from "../gif";
 import ReactDOM from "react-dom";
 import reactDom from "react-dom";
-import {addGif, posts} from "./compMini"
-import {imgUrl} from "./TextList"
 
+let posts = [];
 
 class Post extends Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class Post extends Component {
     };
   }
 
-  // onChange text event
   handleInputdata = (ev) => {
     this.setState = {
       postData: ev.target.value
@@ -29,63 +27,37 @@ class Post extends Component {
     };
   };
 
-  // onclear data event
+  addGif = (e) => {
+    e.preventDefault();
+    reactDom.render(<Gif />, document.getElementById("gifSearch"));
+  };
+
   clearPostData = () => {
     console.log("post data is cleared");
     this.setState = {
       postData: " ",
       imgData: ""
     };
-    console.log(" cleared state" + this.postData, this.imgData);
+    console.log(this.postData);
   };
 
-  // handling submit post and push the data 
+  // handling submit
   handleSubmit = (e) => {
     e.preventDefault();
-    // setting state to null
-    this.setState = {
-      postData: null,
-      imgData: null
-    };
-
-    // assigning postData to data
     let data = this.postData;
-    // assigning object of submited data to post
     let post = {
       postData: data,
-      imgData: imgUrl
+     
     };
-
-    // pushing post object to posts
     posts.push(post);
-
+    // posts.splice(posts.length, 0, ...post)
     console.log(posts);
     console.log(data);
-
-    // setting state to current data
     this.setState = {
       postData: data,
-      imgData: imgUrl
+      imgData: ""
     };
 
-    // returning workingON
-    const PostList = (props) => {
-      const items = posts.map((data, i) => {
-        return (
-          <div id="post" className="post" key={i}>
-            <textarea readOnly id="Data" >{data.postData}</textarea>
-          </div>
-        );
-      });
-      return <div className="postData">{items}</div>;
-    };
-
-    ReactDOM.render(
-    <PostList 
-      postData={posts.postData} 
-      imgData={posts.imgData}
-    />,
-    document.getElementById("posts"));
   };
 
   render() {
@@ -109,7 +81,7 @@ class Post extends Component {
             </div>
             <div className="control">
               <div className="button">
-                <button className="bttn" onClick={addGif}>
+                <button className="bttn" onClick={this.addGif}>
                   add Gif
                 </button>
               </div>

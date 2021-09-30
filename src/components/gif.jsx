@@ -4,6 +4,7 @@ import { GiphyFetch } from "@giphy/js-fetch-api";
 import { useState } from "react";
 
 const giphy = new GiphyFetch("zIn1s1kSNuU9WMhWYJSObdkx1Zvh4zUp");
+let imgUrl = [];
 
 function Gif() {
   const [text, setText] = useState("");
@@ -39,7 +40,8 @@ function Gif() {
     };
 
     apiCall();
-    //change error state back to false
+
+    //change error state back to false 
     setText("");
     setErr(false);
   };
@@ -51,6 +53,7 @@ function Gif() {
       value={text} 
       onChange={handleInput} 
       placeholder="search GIF here"
+      autoFocus
       />
       <button className="submit-btn get-gif" onClick={handleSubmit} id="submit">
       Search GIF
@@ -60,7 +63,7 @@ function Gif() {
       close
     <i className="fas fa-times-circle" />
       </button>
-      <Error isError={err} text="need length longer than 0 for input" />
+      <Error isError={err} text="Please search for valid gif" />
       {results && <TextList gifs={results} />}
     </div>
   );
