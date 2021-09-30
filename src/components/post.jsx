@@ -45,19 +45,21 @@ class Post extends Component {
     // setting state to null
     this.setState = {
       postData: null,
-      imgData: null
+      imgData: []
     };
 
     // assigning postData to data
     let data = this.postData;
+    let imgSrc = imgUrl[0];
     // assigning object of submited data to post
     let post = {
       postData: data,
-      imgData: imgUrl
+      imgData: imgSrc
     };
 
     // pushing post object to posts
-    posts.push(post);
+    // posts.push(post);
+    posts.splice(posts.length, 0 , post)
 
     console.log(posts);
     console.log(data);
@@ -65,15 +67,18 @@ class Post extends Component {
     // setting state to current data
     this.setState = {
       postData: data,
-      imgData: imgUrl
+      imgData: imgSrc
     };
 
-    // returning workingON
+
+    // mapping worked
     const PostList = (props) => {
       const items = posts.map((data, i) => {
         return (
           <div id="post" className="post" key={i}>
+            <label>post {++i}</label>
             <textarea readOnly id="Data" >{data.postData}</textarea>
+            <img src={data.imgData} />
           </div>
         );
       });
