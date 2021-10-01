@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import reactDom from "react-dom";
 import {addGif, posts} from "./compMini"
 import {imgUrl} from "./TextList"
-import PostList from "./postsDiv"
+import PostList, { Datedata, date_time } from "./postsDiv";
 
 
 
@@ -32,11 +32,12 @@ class Post extends Component {
   };
 
   // onclear data event
-  clearPostData = () => {
+  clearPostData = (e) => {
+    e.preventDefault()
     console.log("post data is cleared");
     this.setState = {
-      postData: " ",
-      imgData: ""
+      postData: undefined,
+      imgData: undefined
     };
     console.log(" cleared state" + this.postData, this.imgData);
   };
@@ -47,39 +48,41 @@ class Post extends Component {
     // setting state to null
     this.setState = {
       postData: null,
-      imgData: []
+      imgData: [],
+      timeData: []
     };
 
-    // assigning postData to data
+    // calling date and time
+    Datedata(e);
+
+    // assigning
     let data = this.postData;
     let imgSrc = imgUrl[0];
+    let dateTime = date_time[0];
+
     // assigning object of submited data to post
     let post = {
       postData: data,
-      imgData: imgSrc
+      imgData: imgSrc,
+      dateTime: dateTime
     };
 
     // pushing post object to posts
     // posts.push(post);
-    posts.splice(posts.length, 0 , post)
-
+    posts.splice(posts.length, 0 , post);
     console.log(posts);
     console.log(data);
 
     // setting state to current data
     this.setState = {
       postData: data,
-      imgData: imgSrc
+      imgData: imgSrc,
+      timeData: dateTime
     };
 
 
-    
-
     ReactDOM.render(
-    <PostList 
-      postData={posts.postData} 
-      imgData={posts.imgData}
-    />,
+    <PostList postData={posts.postData} imgData={posts.imgData} />,
     document.getElementById("posts"));
   };
 
