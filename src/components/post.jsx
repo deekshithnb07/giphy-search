@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import reactDom from "react-dom";
 import {addGif, posts} from "./compMini"
 import {imgUrl} from "./TextList"
+import PostList from "./postsDiv"
+
 
 
 class Post extends Component {
@@ -71,21 +73,7 @@ class Post extends Component {
     };
 
 
-    // mapping worked
-    const PostList = (props) => {
-      const items = posts.map((data, i) => {
-        return (
-          <div id="post" className="post" key={i}>
-            <label>post {++i}</label>
-            <div id="onlyText">
-            <textarea readOnly id="Data" disabled >{data.postData}</textarea>
-            </div>
-            <img src={data.imgData} />
-          </div>
-        );
-      });
-      return <div className="postData">{items}</div>;
-    };
+    
 
     ReactDOM.render(
     <PostList 
