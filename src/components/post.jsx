@@ -77,7 +77,9 @@ class Post extends Component {
         return (
           <div id="post" className="post" key={i}>
             <label>post {++i}</label>
-            <textarea readOnly id="Data" >{data.postData}</textarea>
+            <div id="onlyText">
+            <textarea readOnly id="Data" disabled >{data.postData}</textarea>
+            </div>
             <img src={data.imgData} />
           </div>
         );
