@@ -37,12 +37,13 @@ function Textdata(props){
 }
 
 // mapping worked
-const PostList = (props) => {
+const PostList = () => {
     const items = posts.map((data, i) => {
       return (
         <div id="post" className="post" key={i}>
-          <p>post {++i}</p>
+          <p id="pNum">post {++i}</p>
           <div id="dateTime">
+              <label>posted on</label>
               <p>{data.dateTime.date}</p>
               <p>{data.dateTime.time}</p>
           </div>
@@ -53,7 +54,7 @@ const PostList = (props) => {
         </div>
       );
     });
-    return <div className="postData">{items}</div>;
+    return <div className="postData">{items.reverse()}</div>;
   };
   
   export default PostList
