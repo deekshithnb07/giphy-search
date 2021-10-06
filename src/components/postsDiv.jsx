@@ -6,6 +6,7 @@ import {posts} from "./compMini";
 
 export const date_time = []
 
+// date and time
 function Datedata(e) {
     e.preventDefault();
     date_time.shift();
@@ -21,14 +22,13 @@ function Datedata(e) {
 
     date_time.push(dateTime)
     console.log(date_time[0].date + " " + date_time[0].time + " pushed date")
-
 }
 
-// conditionaly rendering
+// conditionaly rendering of posts
 function Textdata(props){
-    if(props.postData == undefined){
+    if(props.postData === undefined){
         return(
-            <span />
+            null
         );
     }
     return(
@@ -50,7 +50,9 @@ const PostList = () => {
           <div id="onlyText">
               <Textdata postData={data.postData} />
           </div>
+          <div className="text-container">
           <img src={data.imgData} />
+          </div>
         </div>
       );
     });

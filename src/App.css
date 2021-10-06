@@ -84,10 +84,17 @@ body {
 text{
   display:block;
 }
+#pNum{
+  margin: 2px;
+}
 
 #dateTime > p {
   font-size: 10px;
-  margin: 2px;
+  margin: 2px 10px;
+}
+#dateTime > label {
+  font-size: 12px;
+  margin: 0 5px;
 }
 
 #close{

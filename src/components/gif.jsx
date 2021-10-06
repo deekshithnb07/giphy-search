@@ -1,28 +1,31 @@
 import TextList from "./TextList";
+import React, {ReactDOM} from "react";
 import Error from "./Error";
 import { GiphyFetch } from "@giphy/js-fetch-api";
-import { useState } from "react";
+import { useState, Component } from "react";
+import { findDOMNode } from "react-dom";
 
 const giphy = new GiphyFetch("zIn1s1kSNuU9WMhWYJSObdkx1Zvh4zUp");
 let imgUrl = [];
 
+
+
 function Gif() {
+
   const [text, setText] = useState("");
   const [results, setResults] = useState([]);
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState(false);  
 
   const handleInput = (e) => {
     e.preventDefault()
     setText(e.target.value);
   };
 
-
-   const handleClose = (ev) =>{
+  const handleClose = (ev) =>{
     ev.preventDefault()
     setResults([]);
     console.log("gif search closed");
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -34,19 +37,28 @@ function Gif() {
     console.log(text);
 
     const apiCall = async () => {
-      const res = await giphy.search(text, { limit: "20" });
+      const res = await giphy.search(text, { limit: 20 });
       console.log(text, res);
       setResults(res.data);
     };
 
     apiCall();
-
     //change error state back to false 
     setText("");
     setErr(false);
   };
 
+
+  const Add = (props) => {
+    if (!props.isError) {
+      return null;
+    }
+  
+    return <p className="error">{props.text}</p>;
+  };
+  
   return (
+    
     <div className="Gif gifForm" id="myForm">
       <input 
       className="input-field" 
@@ -63,8 +75,13 @@ function Gif() {
       close
     <i className="fas fa-times-circle" />
       </button>
+      
       <Error isError={err} text="Please search for valid gif" />
-      {results && <TextList gifs={results} />}
+      {results && <div>
+      <p style={{color: "white"}} >Double click on Gif to select</p>
+      <TextList gifs={results} />
+      </div>
+      }
     </div>
   );
 }

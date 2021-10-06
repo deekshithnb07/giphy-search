@@ -2,56 +2,75 @@ import React, { Component } from "react";
 import Gif from "./gif";
 import ReactDOM from "react-dom";
 import reactDom from "react-dom";
-import {addGif, posts} from "./compMini"
-import {imgUrl} from "./TextList"
+import {addGif, posts, imgUrl, Allpost} from "./compMini"
 import PostList, { Datedata, date_time } from "./postsDiv";
 
 
-
 class Post extends Component {
-  constructor(props) {
+
+  constructor(props) {  
     super(props);
     this.state = {
-      data: "",
       postData: "",
-      imgData: "",
-      posts: []
-    };
+      imgUrl: "",
+      showGifComponent: false,
+      handle: "add"
+    }
+    this.handleInputdata = this.handleInputdata.bind(this);
+    this.clearPostData = this.clearPostData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.popup_gif = this.popup_gif.bind(this);
   }
 
+
   // onChange text event
-  handleInputdata = (ev) => {
-    this.setState = {
+  handleInputdata(ev){ 
+    this.setState ({
       postData: ev.target.value
-    };
-    const data = (this.postData = ev.target.value);
+    });
+    this.postData = ev.target.value
     console.log(this.postData);
-    this.setState = {
-      postData: data
-    };
   };
 
+  popup_gif(e){
+    e.preventDefault();
+    let a = this.state.handle
+    let h
+    function add(a){    
+    if(a === false){
+      return h = "add"
+    }
+    if(a === true){
+      return h = "close"
+    }
+  }
+    this.setState({
+      showGifComponent: !this.state.showGifComponent,
+      handle: h
+        });
+      }
+
   // onclear data event
-  clearPostData = (e) => {
+  clearPostData(e){
     e.preventDefault()
     console.log("post data is cleared");
-    this.setState = {
-      postData: undefined,
-      imgData: undefined
-    };
-    console.log(" cleared state" + this.postData, this.imgData);
+    
+    imgUrl.shift()
+
+    this.setState ({
+      postData: "",
+      imgData: ""
+    });
+
+    // setTimeout(function(){ alert("post data cleared"); }, 1000);
+    console.log(" cleared state " + this.postData, this.imgData);
+    document.getElementById('postData').focus()
   };
 
   // handling submit post and push the data 
-  handleSubmit = (e) => {
+  handleSubmit(e){
     e.preventDefault();
-    // setting state to null
-    this.setState = {
-      postData: null,
-      imgData: [],
-      timeData: []
-    };
-
+    
     // calling date and time
     Datedata(e);
 
@@ -67,23 +86,22 @@ class Post extends Component {
       dateTime: dateTime
     };
 
-    // pushing post object to posts
-    // posts.push(post);
+    // pushing post object to posts array
     posts.splice(posts.length, 0 , post);
+
     console.log(posts);
     console.log(data);
 
-    // setting state to current data
-    this.setState = {
-      postData: data,
-      imgData: imgSrc,
-      timeData: dateTime
-    };
-
-
+    //  PostList();
     ReactDOM.render(
-    <PostList postData={posts.postData} imgData={posts.imgData} />,
+      <PostList />,
     document.getElementById("posts"));
+
+    this.setState ({
+      postData: "",
+      imgData: ""
+    });
+
   };
 
   render() {
@@ -91,7 +109,7 @@ class Post extends Component {
       <main id="main">
         <div className="App form">
           <form className="mb-3">
-            <div id="postData">
+            <div >
               <textarea
                 id="postData"
                 name="message"
@@ -100,35 +118,41 @@ class Post extends Component {
                 className="search form-control"
                 autoComplete="off"
                 autoFocus
+                value={this.state.postData}
                 onChange={this.handleInputdata}
-                value={this.postData}
               />
-              <div id="gif-insert"></div>
+              <div id="gif-insert">
+                
+              </div>
             </div>
             <div className="control">
               <div className="button">
-                <button className="bttn" onClick={addGif}>
-                  add Gif
+                <button className="bttn" onClick={this.popup_gif}>
+                  {this.state.handle} Gif
                 </button>
               </div>
               <div className="button">
-                <button className="bttn" onClick={this.clearPostData}>
+                <button className="bttn" type="reset" onClick={this.clearPostData}>
                   clear
                 </button>
-              </div>
+              </div>  
               <div className="button">
-                <button onClick={this.handleSubmit} className="post bttn">
+                <button onClick={this.handleSubmit} type="submit" value="Submit" className="post bttn">
                   post
                   <i className="fas fa-paper-plane"></i>
                 </button>
               </div>
             </div>
-            <div id="gifSearch"></div>
+            <div id="gifSearch">
+            {this.state.showGifComponent ? <Gif /> : null}
+            </div>
           </form>
         </div>
 
         <div id="poster" className="d-flex justify-content-center">
-          <div id="posts"></div>
+          <div id="posts">
+            <Allpost />
+          </div>
         </div>
       </main>
     );

@@ -1,7 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import ReactDOM from "react-dom";
-import imgUrl from "./imgUrl";
+import React, { useState }from "react";
+import ReactDOM, {unmountComponentAtNode} from "react-dom";
+import {imgUrl} from "./compMini";
+import Gif from "./gif";
+
 
 const TextList = (props) => {
   const items = props.gifs.map((itemData) => {
@@ -16,56 +17,67 @@ const TextList = (props) => {
 };
 
   
-function gifClose(ev) {
-  console.log("selected gif closed");
-  // ReactDOM.unmountComponentAtNode(document.getElementById('GIF'));
-  // document.getElementById('GIF').remove();
-  window.location.reload(false);
-}
 
-const Item = (props) => {
+
+function Item(props){
+  const [gif, setGif] = useState(false);
+
   console.log(props.url);
+
+  function gifClose(ev) {
+    ev.preventDefault();
+    console.log("selected gif closed");
+    setGif(false);
+    imgUrl.shift()
+    console.log(imgUrl)
+  }
 
 // this is gif click event
 function handleGif(e){
+  e.preventDefault();
+  setGif(true)
   console.log(props.url + "  is selected");
 
-  console.log("before asigning " + imgUrl)
+  console.log("before shift or pop " + imgUrl)
   imgUrl.shift()
-  console.log("after asigning " + imgUrl)
-  
-  let Url = [props.url]
-  
+  console.log("after shift or pop " + imgUrl)
+
   console.log("before push " + imgUrl)
   imgUrl.push(props.url);
   console.log("after push " + imgUrl)
 
+
   ReactDOM.render(
-    <div id="GIF">
-      <img
-        src={props.url}
-        alt="gif"
-        name="postGif"
-        width="80%"
-        height="auto"
-      />
-      <i
-        className="far fa-window-close d-flex justify-content-end"
-        onClick={gifClose}
-      />
-    </div>,
+    <Imggif url={props.url} close={gifClose} />,
     document.getElementById("gif-insert")
   );
 }
-
-
-
   return (
     <div className="gif-item" onClick={handleGif}>
       <img src={props.url} alt="gif" />
     </div>
   );
+
 };
+
+function Imggif(props){
+  return(
+    <div id="GIF" className="text-container">
+      <img
+        src={props.url}
+        alt="gif"
+        name="postGif"
+        width="300px"
+        height="auto"
+      />
+      <i
+        className="far fa-window-close d-flex justify-content-end"
+        onClick={props.close}
+      />
+    </div>
+  )
+};
+
 export { TextList as default };
 export {imgUrl}
 
