@@ -17,8 +17,8 @@ const addGif = (e) => {
     )}
     else{
     return(
-      <PostList />
-    )
+          null
+      )
     }
   }
   

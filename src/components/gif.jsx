@@ -9,7 +9,6 @@ const giphy = new GiphyFetch("zIn1s1kSNuU9WMhWYJSObdkx1Zvh4zUp");
 let imgUrl = [];
 
 
-
 function Gif() {
 
   const [text, setText] = useState("");
@@ -24,7 +23,7 @@ function Gif() {
   const handleClose = (ev) =>{
     ev.preventDefault()
     setResults([]);
-    console.log("gif search closed");
+    console.log("gif search has no data");
   }
 
   const handleSubmit = (e) => {
@@ -43,12 +42,12 @@ function Gif() {
     };
 
     apiCall();
-    //change error state back to false 
+    //change error state back to false
     setText("");
     setErr(false);
   };
 
-
+  // display if any error
   const Add = (props) => {
     if (!props.isError) {
       return null;
@@ -77,8 +76,9 @@ function Gif() {
       </button>
       
       <Error isError={err} text="Please search for valid gif" />
-      {results && <div>
-      <p style={{color: "white"}} >Double click on Gif to select</p>
+      {results && 
+      <div>
+      {/* <p style={{color: "white"}} >Double click on Gif to select</p> */}
       <TextList gifs={results} />
       </div>
       }

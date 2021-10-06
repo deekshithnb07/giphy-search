@@ -16,21 +16,22 @@ const TextList = (props) => {
   return <div className="text-container">{items}</div>;
 };
 
+function gifClose(ev) {
+  ev.preventDefault();
+  console.log("selected gif closed");
+  imgUrl.shift();
+  console.log(imgUrl);
+}
   
 
 
 function Item(props){
-  const [gif, setGif] = useState(false);
+ const [gifimg, setGif] = useState(false);
 
   console.log(props.url);
 
-  function gifClose(ev) {
-    ev.preventDefault();
-    console.log("selected gif closed");
-    setGif(false);
-    imgUrl.shift()
-    console.log(imgUrl)
-  }
+  // close gif selected
+  
 
 // this is gif click event
 function handleGif(e){
@@ -45,13 +46,10 @@ function handleGif(e){
   console.log("before push " + imgUrl)
   imgUrl.push(props.url);
   console.log("after push " + imgUrl)
+  
 
-
-  ReactDOM.render(
-    <Imggif url={props.url} close={gifClose} />,
-    document.getElementById("gif-insert")
-  );
 }
+
   return (
     <div className="gif-item" onClick={handleGif}>
       <img src={props.url} alt="gif" />
@@ -79,6 +77,6 @@ function Imggif(props){
 };
 
 export { TextList as default };
-export {imgUrl}
+export {imgUrl, Imggif, Item, gifClose}
 
   

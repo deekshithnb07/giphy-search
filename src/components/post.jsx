@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Gif from "./gif";
-import ReactDOM from "react-dom";
-import reactDom from "react-dom";
+import {Imggif, gifClose} from "./TextList"
 import {addGif, posts, imgUrl, Allpost} from "./compMini"
 import PostList, { Datedata, date_time } from "./postsDiv";
 
@@ -11,10 +10,9 @@ class Post extends Component {
   constructor(props) {  
     super(props);
     this.state = {
-      postData: "",
-      imgUrl: "",
+      postData: '',
+      imgData: imgUrl[0],
       showGifComponent: false,
-      handle: "add"
     }
     this.handleInputdata = this.handleInputdata.bind(this);
     this.clearPostData = this.clearPostData.bind(this);
@@ -28,42 +26,30 @@ class Post extends Component {
     this.setState ({
       postData: ev.target.value
     });
-    this.postData = ev.target.value
-    console.log(this.postData);
+    console.log(this.state.postData);
   };
 
+  // add gif search bar
   popup_gif(e){
     e.preventDefault();
-    let a = this.state.handle
-    let h
-    function add(a){    
-    if(a === false){
-      return h = "add"
-    }
-    if(a === true){
-      return h = "close"
-    }
-  }
     this.setState({
       showGifComponent: !this.state.showGifComponent,
-      handle: h
-        });
-      }
+        }
+      );
+   }
 
   // onclear data event
   clearPostData(e){
     e.preventDefault()
     console.log("post data is cleared");
-    
     imgUrl.shift()
-
     this.setState ({
-      postData: "",
-      imgData: ""
+      postData: '',
+      imgData: imgUrl[0]
     });
 
     // setTimeout(function(){ alert("post data cleared"); }, 1000);
-    console.log(" cleared state " + this.postData, this.imgData);
+    console.log(" cleared post data state " + this.state.postData, this.state.imgData);
     document.getElementById('postData').focus()
   };
 
@@ -75,7 +61,7 @@ class Post extends Component {
     Datedata(e);
 
     // assigning
-    let data = this.postData;
+    let data = this.state.postData;
     let imgSrc = imgUrl[0];
     let dateTime = date_time[0];
 
@@ -91,16 +77,14 @@ class Post extends Component {
 
     console.log(posts);
     console.log(data);
-
-    //  PostList();
-    ReactDOM.render(
-      <PostList />,
-    document.getElementById("posts"));
+    // this.clearPostData(e);  
 
     this.setState ({
-      postData: "",
-      imgData: ""
+      postData: '',
+      imgData: '',
+      showGifComponent: false
     });
+    imgUrl.shift();
 
   };
 
@@ -122,13 +106,13 @@ class Post extends Component {
                 onChange={this.handleInputdata}
               />
               <div id="gif-insert">
-                
+                 {imgUrl.length ? <Imggif url={imgUrl[0]} close={gifClose} /> : null} 
               </div>
             </div>
             <div className="control">
               <div className="button">
                 <button className="bttn" onClick={this.popup_gif}>
-                  {this.state.handle} Gif
+                  {this.state.showGifComponent ? "close" : "add"} Gif
                 </button>
               </div>
               <div className="button">
@@ -151,7 +135,7 @@ class Post extends Component {
 
         <div id="poster" className="d-flex justify-content-center">
           <div id="posts">
-            <Allpost />
+            {posts.length===0 ? <Allpost /> : <PostList />}
           </div>
         </div>
       </main>
