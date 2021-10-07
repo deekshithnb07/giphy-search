@@ -16,6 +16,7 @@ const TextList = (props) => {
   return <div className="text-container">{items}</div>;
 };
 
+// close gif selected
 function gifClose(ev) {
   ev.preventDefault();
   console.log("selected gif closed");
@@ -29,9 +30,6 @@ function Item(props){
  const [gifimg, setGif] = useState(false);
 
   console.log(props.url);
-
-  // close gif selected
-  
 
 // this is gif click event
 function handleGif(e){

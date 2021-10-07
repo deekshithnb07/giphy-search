@@ -1,5 +1,5 @@
 import TextList from "./TextList";
-import React, {ReactDOM} from "react";
+import React, {ReactDOM, useEffect} from "react";
 import Error from "./Error";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { useState, Component } from "react";
@@ -8,12 +8,22 @@ import { findDOMNode } from "react-dom";
 const giphy = new GiphyFetch("zIn1s1kSNuU9WMhWYJSObdkx1Zvh4zUp");
 let imgUrl = [];
 
+function loadDataOnlyOnce(){
+  const a = () =>{
+    <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" />
+  }
+}
 
 function Gif() {
 
   const [text, setText] = useState("");
   const [results, setResults] = useState([]);
   const [err, setErr] = useState(false);  
+
+  useEffect(()=>{
+    console.log("here is gif search results");
+    loadDataOnlyOnce()
+  },[results])
 
   const handleInput = (e) => {
     e.preventDefault()
