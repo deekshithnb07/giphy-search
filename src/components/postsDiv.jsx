@@ -48,6 +48,9 @@ const PostList = () => {
               <p>{data.dateTime.time}</p>
           </div>
           <div id="onlyText">
+              <caption className="caption-top">Title</caption>
+              <Textdata postData={data.title} className="form-control" />
+              <caption className="caption-top">Message</caption>
               <Textdata postData={data.postData} />
           </div>
           <div className="text-container">

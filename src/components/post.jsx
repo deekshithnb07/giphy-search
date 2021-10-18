@@ -13,18 +13,27 @@ class Post extends Component {
       postData: '',
       imgData: imgUrl[0],
       showGifComponent: false,
+      title: ""
     }
     this.handleInputdata = this.handleInputdata.bind(this);
     this.clearPostData = this.clearPostData.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.popup_gif = this.popup_gif.bind(this);
+    this.handleInputTitle = this.handleInputTitle.bind(this);
   }
 
+  // onChange title event
+  handleInputTitle(e){
+    this.setState({
+      title: e.target.value
+    });
+    console.log(this.state.title);
+  }
 
   // onChange text event
   handleInputdata(ev){ 
     this.setState ({
-      postData: ev.target.value
+      postData: ev.target.value,
     });
     console.log(this.state.postData);
   };
@@ -45,11 +54,12 @@ class Post extends Component {
     imgUrl.shift()
     this.setState ({
       postData: '',
-      imgData: imgUrl[0]
+      imgData: imgUrl[0],
+      title: ""
     });
 
     // setTimeout(function(){ alert("post data cleared"); }, 1000);
-    console.log(" cleared post data state " + this.state.postData, this.state.imgData);
+    console.log(" cleared post data state " + this.state.title + this.state.postData, this.state.imgData);
     document.getElementById('postData').focus()
   };
 
@@ -64,12 +74,14 @@ class Post extends Component {
     let data = this.state.postData;
     let imgSrc = imgUrl[0];
     let dateTime = date_time[0];
+    let titleName = this.state.title;
 
     // assigning object of submited data to post
     let post = {
       postData: data,
       imgData: imgSrc,
-      dateTime: dateTime
+      dateTime: dateTime,
+      title: titleName
     };
 
     // pushing post object to posts array
@@ -82,7 +94,8 @@ class Post extends Component {
     this.setState ({
       postData: '',
       imgData: '',
-      showGifComponent: false
+      showGifComponent: false,
+      title: ""
     });
     imgUrl.shift();
 
@@ -94,6 +107,15 @@ class Post extends Component {
         <div className="App form">
           <form className="mb-3">
             <div >
+              <input 
+              type="text"
+              className="form-control"
+              placeholder="enter title here"
+              value={this.state.title}
+              onChange={this.handleInputTitle}
+              autoComplete="off"
+              autoFocus
+              />
               <textarea
                 id="postData"
                 name="message"
@@ -101,7 +123,6 @@ class Post extends Component {
                 placeholder="enter message"
                 className="search form-control"
                 autoComplete="off"
-                autoFocus
                 value={this.state.postData}
                 onChange={this.handleInputdata}
               />
